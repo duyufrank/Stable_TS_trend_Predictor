@@ -7,7 +7,7 @@ Created on Thu Dec 23 13:55:32 2021
 ### This file only includes major functions, aiming to depict the workflow of this model
 import pandas as pd
 import numpy as np
-from macro_func_major import *
+from utils.macro_func_major import *
 #%% module 1: data_preparation
 #读取
 skip = ['M5206730']
