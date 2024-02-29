@@ -5,7 +5,7 @@ Created on Thu Dec 23 14:43:10 2021
 @author: Yu Du
 """
 import pandas as pd
-from macro_func_major import *
+from utils.macro_func_major import *
 #load
 df = pd.read_csv('df.csv',index_col=0)
 df_ref = pd.read_csv('df_ref.csv',index_col=0)
