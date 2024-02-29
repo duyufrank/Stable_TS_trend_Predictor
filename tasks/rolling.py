@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from macro_func_major import *
+from utils.macro_func_major import *
 import warnings
 import time as t
 from tqdm import tqdm
