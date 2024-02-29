@@ -3,6 +3,7 @@ import numpy as np
 from macro_func_major import *
 import warnings
 import time as t
+from tqdm import tqdm
 warnings.filterwarnings("ignore")
 
 code = 'M0001227'
@@ -18,7 +19,7 @@ x12_path = r'x13\x13as.exe'
 spring_factor = generate_spring.compute_factor(pd.read_excel(r'春节.xlsx', sheet_name='Sheet1'), 13,6)
 #result: {time:pred,range of y,range of y_true, components}
 i=0
-for time in test_periods:
+for time in tqdm(test_periods):
     t_start = t.time()
     i+=1
     print(f'-----{i}/{len(test_periods)}-----')
