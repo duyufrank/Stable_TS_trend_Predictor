@@ -104,13 +104,12 @@ def all2yoy(series,dtype):
         return(series)
     if dtype == 'index':
         series = series.pct_change(12,fill_method = None)
-        return(series)
-      
-############not used yet########################
+        return(series)     
+        
 def index2yoy(series):
     series = series.pct_change(12).apply(lambda x:np.nan if np.isinf(x) else x)
     return series.fillna(method="ffill")
-################################################
+    
 def standarize(series):
     max_num = np.nanmax(series)
     min_num = np.nanmin(series)
