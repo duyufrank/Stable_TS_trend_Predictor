@@ -4,7 +4,9 @@ Created on Thu Dec 23 13:48:59 2021
 
 @author: Yu Du
 """
-
+import cvxpy as cp
+import scipy 
+import cvxopt
 import pandas as pd
 import numpy as np 
 from scipy import stats as stats
@@ -199,6 +201,31 @@ def hp_filter(Y1, smoothing, **kw):
     Cyclical = Y - Trend
     return pd.DataFrame(np.squeeze(np.array([Trend, Cyclical]).T),
                         index=Y1.index, columns=['trend', 'irregular'])
+    
+def robust_hp(y,lamb,outlier=0,update=1,rho=0.5,ori=0):
+    n=y.shape[0]
+    if n<=240:
+        update = 0
+    ones_row = np.ones((1, n))
+    rho = rho*y.diff().std()
+    tau = 10
+    D = scipy.sparse.spdiags(np.vstack((ones_row, -2*ones_row, ones_row)), range(3), n-2, n)
+    x = cp.Variable(shape=n)
+    obj = lamb*cp.norm(D@x,2)
+    #origin 0.5*cp.sum_squares(y.to_numpy()-x)
+    if outlier:
+        obj = obj+cp.sum([cp.huber(cp.norm((y.to_numpy()-x)[t],2),rho) for t in range(n)])
+    else:
+        obj = obj+0.5*cp.sum_squares(y.to_numpy()-x)
+    if (update==1)&(type(ori) == int):
+        ori = robust_hp(y[:-1],lamb,outlier=outlier,update=update)
+    if update:
+        obj = obj+tau*cp.sum_squares(x[:-1]-ori)
+    obj = cp.Minimize(obj)
+    cp.Problem(obj).solve(solver)
+    x= np.array(x.value)
+    return x
+    
 #%% model2 
 #funcs in model 2 -- select Xs
 def index2score(series,inverse = False,threshold = 0.4):
