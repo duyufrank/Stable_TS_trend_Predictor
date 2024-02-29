@@ -5,7 +5,7 @@ Created on Tue Dec 28 14:10:14 2021
 @author: Yu Du
 """
 import pandas as pd
-from macro_func_major import *
+from utils/macro_func_major import *
 import time
 code = 'M0000545'
 
