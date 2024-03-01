@@ -1,1 +1,2 @@
-# macro_econ_predictor
+# Stable_TS_trend_Predictor
+This work contributed to predicting important macro eco indexes in China. The method of double filter, and the innovative robust HP filter help to improve the methodology to produce accurate prediction of the trend in noisy data. The knowledge in eco and finance backsupports the development of the algorithm. This work help to build synthetic index as the prediction of long term trends of eco, and backtest its accuracy
